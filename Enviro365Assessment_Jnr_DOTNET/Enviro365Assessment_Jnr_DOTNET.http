@@ -1,0 +1,6 @@
+@Enviro365Assessment_Jnr_DOTNET_HostAddress = http://localhost:5257
+
+GET {{Enviro365Assessment_Jnr_DOTNET_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
