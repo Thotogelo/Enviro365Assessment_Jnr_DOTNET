@@ -12,8 +12,8 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI(opt =>
 {
-    opt.DocumentTitle = "Enviro365Assessment_Jnr_DOTNET";
-    opt.SwaggerEndpoint("/swagger/v1/swagger.json", "Enviro365Assessment_Jnr_DOTNET");
+    opt.DocumentTitle = "Environment System API ";
+    opt.SwaggerEndpoint("/swagger/v1/swagger.json", "Environment API V1");
     opt.RoutePrefix = string.Empty;
 });
 
