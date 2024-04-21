@@ -1,8 +1,11 @@
+using Enviro365Assessment_Jnr_DOTNET.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddDbContext<DataContext>();
 
 var app = builder.Build();
 
