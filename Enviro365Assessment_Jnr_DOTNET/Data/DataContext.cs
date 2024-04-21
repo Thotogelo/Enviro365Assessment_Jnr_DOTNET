@@ -22,11 +22,17 @@ public class DataContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<EnvironmentData>().ToTable("EnvironmentData");
-        modelBuilder.Entity<EnvironmentData>().HasKey("Id");
-        modelBuilder.Entity<EnvironmentData>().Property("Id").HasColumnName("EnvironmentDataId").IsRequired();
-        modelBuilder.Entity<EnvironmentData>().Property("FileName").HasColumnName("File_name").IsRequired();
-        modelBuilder.Entity<EnvironmentData>().Property("UploadDate").HasColumnName("Upload_Date").IsRequired();
-        modelBuilder.Entity<EnvironmentData>().Property("ProcessedData").HasColumnName("Processed_Data").IsRequired();
+        modelBuilder.Entity<EnvironmentData>(entity =>
+        {
+            entity.ToTable("EnvironmentData")
+                .HasKey(e => e.Id);
+            entity.Property(e => e.Id).HasColumnName("EnvironmentDataId").IsRequired();
+
+            entity.Property(e => e.FileName).HasColumnName("File_name").IsRequired();
+
+            entity.Property(e => e.UploadDate).HasColumnName("Upload_Date").IsRequired();
+
+            entity.Property(e => e.ProcessedData).HasColumnName("Processed_Data").IsRequired();
+        });
     }
 }
