@@ -5,19 +5,21 @@ namespace Enviro365Assessment_Jnr_DOTNET.Data;
 
 public class DataContext : DbContext
 {
+    private readonly IConfiguration _configuration;
     public DbSet<EnvironmentData> EnvironmentData { get; set; }
 
     protected DataContext()
     {
     }
 
-    public DataContext(DbContextOptions options) : base(options)
+    public DataContext(DbContextOptions options, IConfiguration configuration) : base(options)
     {
+        _configuration = configuration;
     }
 
-    protected void OnConfiguring(DbContextOptionsBuilder optionsBuilder, IConfiguration configuration)
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        base.OnConfiguring(optionsBuilder.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
+        base.OnConfiguring(optionsBuilder.UseNpgsql(_configuration.GetConnectionString("DefaultConnection")));
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
