@@ -6,7 +6,7 @@ namespace Enviro365Assessment_Jnr_DOTNET.Data;
 public class DataContext : DbContext
 {
     private readonly IConfiguration _configuration;
-    public DbSet<EnvFile> EnvironmentData { get; set; }
+    public DbSet<EnvFile> EnvFiles { get; set; }
 
     protected DataContext()
     {
