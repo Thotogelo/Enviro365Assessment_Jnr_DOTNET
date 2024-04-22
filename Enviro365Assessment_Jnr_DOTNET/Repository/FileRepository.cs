@@ -10,15 +10,15 @@ public class FileRepository : IFIleRepository
     public FileRepository(DataContext dataContext)
         => _dataContext = dataContext;
 
-    public int UploadFile(EnvFile file)
+    public int UploadFile(EnvFile? file)
     {
         _dataContext.EnvFiles.Add(file);
         return _dataContext.SaveChanges();
     }
 
-    public EnvFile GetFile(int id)
+    public EnvFile? GetFile(int id)
     {
-        throw new NotImplementedException();
+        return _dataContext.EnvFiles.Find(id);
     }
 
     public List<EnvFile> GetFiles()
@@ -26,12 +26,12 @@ public class FileRepository : IFIleRepository
         throw new NotImplementedException();
     }
 
-    public void DeleteFile(int id)
+    public int DeleteFile(int id)
     {
         throw new NotImplementedException();
     }
 
-    public void UpdateFile(EnvFile file)
+    public int UpdateFile(EnvFile file)
     {
         throw new NotImplementedException();
     }
