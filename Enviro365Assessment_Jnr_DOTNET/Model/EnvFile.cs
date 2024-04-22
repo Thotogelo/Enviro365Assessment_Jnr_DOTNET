@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Enviro365Assessment_Jnr_DOTNET.Model;
 
-public class EnvironmentData
+public class EnvFile
 {
     public required int Id { get; set; }
 

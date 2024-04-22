@@ -6,7 +6,7 @@ namespace Enviro365Assessment_Jnr_DOTNET.Data;
 public class DataContext : DbContext
 {
     private readonly IConfiguration _configuration;
-    public DbSet<EnvironmentData> EnvironmentData { get; set; }
+    public DbSet<EnvFile> EnvironmentData { get; set; }
 
     protected DataContext()
     {
@@ -24,11 +24,11 @@ public class DataContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<EnvironmentData>(entity =>
+        modelBuilder.Entity<EnvFile>(entity =>
         {
-            entity.ToTable("EnvironmentData")
+            entity.ToTable("EnvFileEnvData")
                 .HasKey(e => e.Id);
-            entity.Property(e => e.Id).HasColumnName("EnvironmentDataId").IsRequired();
+            entity.Property(e => e.Id).HasColumnName("EnvDataId").IsRequired();
 
             entity.Property(e => e.FileName).HasColumnName("File_name").IsRequired();
 

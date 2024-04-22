@@ -22,7 +22,7 @@ namespace Enviro365Assessment_Jnr_DOTNET.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Enviro365Assessment_Jnr_DOTNET.Model.EnvironmentData", b =>
+            modelBuilder.Entity("Enviro365Assessment_Jnr_DOTNET.Model.EnvFile", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -47,7 +47,7 @@ namespace Enviro365Assessment_Jnr_DOTNET.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("EnvironmentData", (string)null);
+                    b.ToTable("EnvFile", (string)null);
                 });
 #pragma warning restore 612, 618
         }
