@@ -34,6 +34,7 @@ public class FileRepository : IFIleRepository
 
     public int UpdateFile(EnvFile file)
     {
-        throw new NotImplementedException();
+        _dataContext.EnvFiles.Update(file);
+        return _dataContext.SaveChanges();
     }
 }
