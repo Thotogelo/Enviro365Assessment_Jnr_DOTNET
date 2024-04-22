@@ -12,6 +12,8 @@ public class FileRepository : IFIleRepository
 
     public int UploadFile(EnvFile? file)
     {
+        if (file == null)
+            return 0;
         _dataContext.EnvFiles.Add(file);
         return _dataContext.SaveChanges();
     }
@@ -28,7 +30,10 @@ public class FileRepository : IFIleRepository
 
     public int DeleteFile(int id)
     {
-        _dataContext.EnvFiles.Remove(GetFile(id));
+        EnvFile? file = GetFile(id);
+        if (file == null)
+            return 0;
+        _dataContext.EnvFiles.Remove(file);
         return _dataContext.SaveChanges();
     }
 
