@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Enviro365Assessment_Jnr_DOTNET.Repository;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Enviro365Assessment_Jnr_DOTNET.Controller;
 
@@ -6,9 +7,15 @@ namespace Enviro365Assessment_Jnr_DOTNET.Controller;
 [Route("api/[controller]")]
 public class UploadController
 {
+    private readonly IFIleRepository _fileRepository;
+
+    public UploadController(IFIleRepository fileRepository)
+        => _fileRepository = fileRepository;
+
+
     [HttpGet]
-    public string test() => "Hello World!";
-    
+    public string Test() => "Hello World!";
+
     [HttpPost]
     public string UploadFile(IFormFile file)
     {
