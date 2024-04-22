@@ -23,7 +23,7 @@ public class FileRepository : IFIleRepository
 
     public List<EnvFile> GetFiles()
     {
-        throw new NotImplementedException();
+        return _dataContext.EnvFiles.ToList();
     }
 
     public int DeleteFile(int id)
