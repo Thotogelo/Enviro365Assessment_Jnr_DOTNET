@@ -28,7 +28,8 @@ public class FileRepository : IFIleRepository
 
     public int DeleteFile(int id)
     {
-        throw new NotImplementedException();
+        _dataContext.EnvFiles.Remove(GetFile(id));
+        return _dataContext.SaveChanges();
     }
 
     public int UpdateFile(EnvFile file)
