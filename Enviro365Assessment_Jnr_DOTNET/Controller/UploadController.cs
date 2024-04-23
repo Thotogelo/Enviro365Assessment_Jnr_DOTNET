@@ -18,28 +18,28 @@ public class UploadController
 
     [HttpPost]
     [Route("upload")]
-    public string UploadFile(IFormFile file)
+    public IActionResult UploadFile(IFormFile file)
     {
-        return "File uploaded successfully";
+        throw new NotImplementedException();
     }
 
     [HttpGet]
     [Route("{id}")]
-    public string GetFile(int id)
+    public IActionResult GetFile(int id)
     {
-        return "File retrieved successfully";
+        throw new NotImplementedException();
     }
 
     [HttpGet]
-    public string GetFiles()
+    public IActionResult GetFiles()
     {
-        return "Files retrieved successfully";
+        throw new NotImplementedException();
     }
 
     [HttpDelete]
     [Route("{id}")]
-    public string DeleteFile(int id)
+    public IActionResult DeleteFile(int id)
     {
-        return "File deleted successfully";
+        throw new NotImplementedException();
     }
 }
