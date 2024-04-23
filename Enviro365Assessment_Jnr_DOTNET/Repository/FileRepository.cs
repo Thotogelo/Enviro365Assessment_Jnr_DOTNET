@@ -54,7 +54,8 @@ public class FileRepository : IFIleRepository
 
     public int UpdateFile(IFormFile file)
     {
-        file._dataContext.EnvFiles.Update(file);
+        EnvFile FileToUpdate = CovertToEnvFile(file);
+        _dataContext.EnvFiles.Update(FileToUpdate);
         return _dataContext.SaveChanges();
     }
 }
