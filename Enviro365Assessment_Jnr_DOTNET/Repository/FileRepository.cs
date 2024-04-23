@@ -10,13 +10,14 @@ public class FileRepository : IFIleRepository
     public FileRepository(DataContext dataContext)
         => _dataContext = dataContext;
 
+
     public EnvFile CovertToEnvFile(IFormFile file)
     {
         using var reader = new StreamReader(file.OpenReadStream());
         string contents = reader.ReadToEnd();
         return new EnvFile
         {
-            Id = 0, // Set the Id property
+            Id = 0, // Id is auto-generated
             FileName = file.FileName,
             ProcessedData = contents
         };
@@ -26,7 +27,9 @@ public class FileRepository : IFIleRepository
     {
         if (file == null)
             return 0;
-        _dataContext.EnvFiles.Add(file);
+
+        EnvFile FileToStore = CovertToEnvFile(file);
+        _dataContext.EnvFiles.Add(FileToStore);
         return _dataContext.SaveChanges();
     }
 
