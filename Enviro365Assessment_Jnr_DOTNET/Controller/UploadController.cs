@@ -20,7 +20,8 @@ public class UploadController : ControllerBase
     [Route("upload")]
     public IActionResult UploadFile(IFormFile file)
     {
-        throw new NotImplementedException();
+        int rowsAffected = _fileRepository.UploadFile(file);
+        return rowsAffected > 0 ? Ok() : BadRequest();
     }
 
     [HttpGet]
