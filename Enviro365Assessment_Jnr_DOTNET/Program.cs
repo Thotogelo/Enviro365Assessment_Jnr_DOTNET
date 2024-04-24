@@ -8,6 +8,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<DataContext>();
 builder.Services.AddTransient<IFIleRepository, FileRepository>();
+builder.Services.AddLogging();
+builder.Services.AddControllers();
+
 
 var app = builder.Build();
 
@@ -19,6 +22,7 @@ app.UseSwaggerUI(opt =>
     opt.RoutePrefix = string.Empty;
 });
 
+app.Logger.LogInformation("Application Started");
 app.MapControllers();
 app.MapGet("/test", () => "Hello World!");
 app.Run();
