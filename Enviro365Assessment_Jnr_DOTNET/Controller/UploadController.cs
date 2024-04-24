@@ -45,6 +45,7 @@ public class UploadController : ControllerBase
     [Route("{id}")]
     public IActionResult DeleteFile(int id)
     {
-        throw new NotImplementedException();
+        int rowsAffected = _fileRepository.DeleteFile(id);
+        return rowsAffected > 0 ? Ok() : NotFound();
     }
 }
