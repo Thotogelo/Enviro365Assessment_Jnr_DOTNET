@@ -37,7 +37,8 @@ public class UploadController : ControllerBase
     [Route("data")]
     public IActionResult GetFiles()
     {
-        throw new NotImplementedException();
+        return Ok(_fileRepository.GetFiles());
+
     }
 
     [HttpDelete]
