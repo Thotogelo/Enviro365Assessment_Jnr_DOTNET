@@ -1,4 +1,5 @@
-﻿using Enviro365Assessment_Jnr_DOTNET.Repository;
+﻿using Enviro365Assessment_Jnr_DOTNET.Model;
+using Enviro365Assessment_Jnr_DOTNET.Repository;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Enviro365Assessment_Jnr_DOTNET.Controller;
@@ -28,7 +29,8 @@ public class UploadController : ControllerBase
     [Route("{id}")]
     public IActionResult GetFile(int id)
     {
-        throw new NotImplementedException();
+        EnvFile? file = _fileRepository.GetFile(id);
+        return file != null ? Ok(file) : NotFound();
     }
 
     [HttpGet]
