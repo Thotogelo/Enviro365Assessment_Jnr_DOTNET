@@ -5,7 +5,7 @@ namespace Enviro365Assessment_Jnr_DOTNET.Controller;
 
 [ApiController]
 [Route("api/[controller]")]
-public class UploadController
+public class UploadController : ControllerBase
 {
     private readonly IFIleRepository _fileRepository;
 
@@ -31,6 +31,7 @@ public class UploadController
     }
 
     [HttpGet]
+    [Route("data")]
     public IActionResult GetFiles()
     {
         throw new NotImplementedException();
