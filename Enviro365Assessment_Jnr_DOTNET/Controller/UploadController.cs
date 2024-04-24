@@ -48,4 +48,13 @@ public class UploadController : ControllerBase
         int rowsAffected = _fileRepository.DeleteFile(id);
         return rowsAffected > 0 ? Ok() : NotFound();
     }
+
+    [HttpPost]
+    [Route("update")]
+    public IActionResult UpdateFile(IFormFile file)
+    {
+        int rowsAffected = _fileRepository.UpdateFile(file);
+        return rowsAffected > 0 ? Ok() : BadRequest();
+    }
+
 }
