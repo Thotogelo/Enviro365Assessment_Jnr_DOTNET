@@ -10,9 +10,26 @@ public class FileRepository : IFIleRepository
     public FileRepository(DataContext dataContext)
         => _dataContext = dataContext;
 
-    public int UploadFile(EnvFile? file)
+
+    public EnvFile CovertToEnvFile(IFormFile file)
     {
-        _dataContext.EnvFiles.Add(file);
+        using var reader = new StreamReader(file.OpenReadStream());
+        string contents = reader.ReadToEnd();
+        return new EnvFile
+        {
+            Id = 0, // Id is auto-generated
+            FileName = file.FileName,
+            ProcessedData = contents
+        };
+    }
+
+    public int UploadFile(IFormFile file)
+    {
+        if (file == null)
+            return 0;
+
+        EnvFile FileToStore = CovertToEnvFile(file);
+        _dataContext.EnvFiles.Add(FileToStore);
         return _dataContext.SaveChanges();
     }
 
@@ -28,13 +45,17 @@ public class FileRepository : IFIleRepository
 
     public int DeleteFile(int id)
     {
-        _dataContext.EnvFiles.Remove(GetFile(id));
+        EnvFile? file = GetFile(id);
+        if (file == null)
+            return 0;
+        _dataContext.EnvFiles.Remove(file);
         return _dataContext.SaveChanges();
     }
 
-    public int UpdateFile(EnvFile file)
+    public int UpdateFile(IFormFile file)
     {
-        _dataContext.EnvFiles.Update(file);
+        EnvFile FileToUpdate = CovertToEnvFile(file);
+        _dataContext.EnvFiles.Update(FileToUpdate);
         return _dataContext.SaveChanges();
     }
 }
