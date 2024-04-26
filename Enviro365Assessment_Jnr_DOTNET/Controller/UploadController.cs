@@ -18,7 +18,7 @@ public class UploadController : ControllerBase
     public string Test() => "Hello World!";
 
     [HttpPost]
-    [Route("upload")]
+    [Route("save")]
     public IActionResult UploadFile(IFormFile file)
     {
         int rowsAffected = _fileRepository.UploadFile(file);
