@@ -13,10 +13,6 @@ public class UploadController : ControllerBase
     public UploadController(IFIleRepository fileRepository)
         => _fileRepository = fileRepository;
 
-
-    [HttpGet]
-    public string Test() => "Hello World!";
-
     [HttpPost]
     [Route("save")]
     public IActionResult UploadFile(IFormFile file)
