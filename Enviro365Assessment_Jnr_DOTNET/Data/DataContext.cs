@@ -26,7 +26,7 @@ public class DataContext : DbContext
     {
         modelBuilder.Entity<EnvFile>(entity =>
         {
-            entity.ToTable("EnvFileEnvData")
+            entity.ToTable("EnvFile")
                 .HasKey(e => e.Id);
             entity.Property(e => e.Id).HasColumnName("EnvDataId").IsRequired();
 
