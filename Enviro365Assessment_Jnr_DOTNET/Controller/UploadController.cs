@@ -19,7 +19,6 @@ public class UploadController : ControllerBase
     {
         try
         {
-
             int rowsAffected = _fileRepository.UploadFile(file);
             return rowsAffected > 0 ? Ok() : BadRequest();
         }
