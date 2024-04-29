@@ -12,7 +12,10 @@ builder.Services.AddTransient<IFIleRepository, FileRepository>();
 builder.Services.AddLogging();
 builder.Services.AddControllers();
 builder.Services.AddProblemDetails();
-
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new() { Title = "Environment Data API", Version = "v1" });
+});
 
 var app = builder.Build();
 
@@ -21,7 +24,7 @@ app.UseSwagger();
 app.UseSwaggerUI(opt =>
 {
     opt.DocumentTitle = "Environment System API ";
-    opt.SwaggerEndpoint("/swagger/v1/swagger.json", "Environment API V1");
+    opt.SwaggerEndpoint("/swagger/v1/swagger.json", "Environment Data API V1");
     opt.RoutePrefix = string.Empty;
 });
 
