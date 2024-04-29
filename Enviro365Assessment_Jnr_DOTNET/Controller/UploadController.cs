@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Enviro365Assessment_Jnr_DOTNET.Controller;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/v1/[controller]")]
 public class UploadController : ControllerBase
 {
     private readonly IFIleRepository _fileRepository;
@@ -13,16 +13,20 @@ public class UploadController : ControllerBase
     public UploadController(IFIleRepository fileRepository)
         => _fileRepository = fileRepository;
 
-
-    [HttpGet]
-    public string Test() => "Hello World!";
-
     [HttpPost]
-    [Route("upload")]
-    public IActionResult UploadFile(IFormFile file)
+    [Route("save")]
+    public IActionResult UploadFile([FromForm] IFormFile file)
     {
-        int rowsAffected = _fileRepository.UploadFile(file);
-        return rowsAffected > 0 ? Ok() : BadRequest();
+        try
+        {
+
+            int rowsAffected = _fileRepository.UploadFile(file);
+            return rowsAffected > 0 ? Ok() : BadRequest();
+        }
+        catch (Exception e)
+        {
+            throw new Exception("An error occurred while uploading the file: " + e.Message);
+        }
     }
 
     [HttpGet]

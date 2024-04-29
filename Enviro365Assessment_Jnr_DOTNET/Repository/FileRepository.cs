@@ -13,14 +13,22 @@ public class FileRepository : IFIleRepository
 
     public EnvFile CovertToEnvFile(IFormFile file)
     {
-        using var reader = new StreamReader(file.OpenReadStream());
-        string contents = reader.ReadToEnd();
-        return new EnvFile
+        try
         {
-            Id = 0, // Id is auto-generated
-            FileName = file.FileName,
-            ProcessedData = contents
-        };
+            using var reader = new StreamReader(file.OpenReadStream());
+            string contents = reader.ReadToEnd();
+            reader.Close();
+            return new EnvFile
+            {
+                Id = 0, // Id is auto-generated
+                FileName = file.FileName,
+                ProcessedData = contents
+            };
+        }
+        catch (Exception e)
+        {
+            throw new Exception("An error occurred while reading the file: " + e.Message);
+        }
     }
 
     public int UploadFile(IFormFile file)
@@ -28,9 +36,16 @@ public class FileRepository : IFIleRepository
         if (file == null)
             return 0;
 
-        EnvFile FileToStore = CovertToEnvFile(file);
-        _dataContext.EnvFiles.Add(FileToStore);
-        return _dataContext.SaveChanges();
+        try
+        {
+            EnvFile FileToStore = CovertToEnvFile(file);
+            _dataContext.EnvFiles.Add(FileToStore);
+            return _dataContext.SaveChanges();
+        }
+        catch (Exception e)
+        {
+            throw new Exception("An error occurred while uploading the file: " + e.Message);
+        }
     }
 
     public EnvFile? GetFile(int id)
@@ -48,14 +63,28 @@ public class FileRepository : IFIleRepository
         EnvFile? file = GetFile(id);
         if (file == null)
             return 0;
-        _dataContext.EnvFiles.Remove(file);
-        return _dataContext.SaveChanges();
+        try
+        {
+            _dataContext.EnvFiles.Remove(file);
+            return _dataContext.SaveChanges();
+        }
+        catch (Exception e)
+        {
+            throw new Exception("An error occurred while removing the file: " + e.Message);
+        }
     }
 
     public int UpdateFile(IFormFile file)
     {
         EnvFile FileToUpdate = CovertToEnvFile(file);
-        _dataContext.EnvFiles.Update(FileToUpdate);
-        return _dataContext.SaveChanges();
+        try
+        {
+            _dataContext.EnvFiles.Update(FileToUpdate);
+            return _dataContext.SaveChanges();
+        }
+        catch (Exception e)
+        {
+            throw new Exception("An error occurred while updating the file: " + e.Message);
+        }
     }
 }
