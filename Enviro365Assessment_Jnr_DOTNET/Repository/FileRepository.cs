@@ -71,7 +71,14 @@ public class FileRepository : IFIleRepository
     public int UpdateFile(IFormFile file)
     {
         EnvFile FileToUpdate = CovertToEnvFile(file);
-        _dataContext.EnvFiles.Update(FileToUpdate);
-        return _dataContext.SaveChanges();
+        try
+        {
+            _dataContext.EnvFiles.Update(FileToUpdate);
+            return _dataContext.SaveChanges();
+        }
+        catch (Exception e)
+        {
+            throw new Exception("An error occurred while updating the file: " + e.Message);
+        }
     }
 }
