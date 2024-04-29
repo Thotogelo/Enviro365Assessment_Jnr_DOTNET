@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Enviro365Assessment_Jnr_DOTNET.Model;
+﻿namespace Enviro365Assessment_Jnr_DOTNET.Model;
 
 public class EnvFile
 {
