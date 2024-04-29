@@ -1,4 +1,5 @@
 using Enviro365Assessment_Jnr_DOTNET.Data;
+using Enviro365Assessment_Jnr_DOTNET.Exceptions;
 using Enviro365Assessment_Jnr_DOTNET.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,10 +11,12 @@ builder.Services.AddDbContext<DataContext>();
 builder.Services.AddTransient<IFIleRepository, FileRepository>();
 builder.Services.AddLogging();
 builder.Services.AddControllers();
+builder.Services.AddProblemDetails();
 
 
 var app = builder.Build();
 
+app.UseMiddleware<ErrorMiddleWare>();
 app.UseSwagger();
 app.UseSwaggerUI(opt =>
 {
