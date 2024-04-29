@@ -32,7 +32,6 @@ public class FileRepository : IFIleRepository
 
         try
         {
-
             EnvFile FileToStore = CovertToEnvFile(file);
             _dataContext.EnvFiles.Add(FileToStore);
             return _dataContext.SaveChanges();
@@ -58,8 +57,15 @@ public class FileRepository : IFIleRepository
         EnvFile? file = GetFile(id);
         if (file == null)
             return 0;
-        _dataContext.EnvFiles.Remove(file);
-        return _dataContext.SaveChanges();
+        try
+        {
+            _dataContext.EnvFiles.Remove(file);
+            return _dataContext.SaveChanges();
+        }
+        catch (Exception e)
+        {
+            throw new Exception("An error occurred while removing the file: " + e.Message);
+        }
     }
 
     public int UpdateFile(IFormFile file)
