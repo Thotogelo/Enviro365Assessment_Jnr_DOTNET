@@ -28,9 +28,17 @@ public class FileRepository : IFIleRepository
         if (file == null)
             return 0;
 
-        EnvFile FileToStore = CovertToEnvFile(file);
-        _dataContext.EnvFiles.Add(FileToStore);
-        return _dataContext.SaveChanges();
+        try
+        {
+
+            EnvFile FileToStore = CovertToEnvFile(file);
+            _dataContext.EnvFiles.Add(FileToStore);
+            return _dataContext.SaveChanges();
+        }
+        catch (Exception e)
+        {
+            throw new Exception("An error occurred while uploading the file: " + e.Message);
+        }
     }
 
     public EnvFile? GetFile(int id)
