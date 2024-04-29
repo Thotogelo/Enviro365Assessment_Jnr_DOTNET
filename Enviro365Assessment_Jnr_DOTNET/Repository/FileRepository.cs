@@ -15,12 +15,14 @@ public class FileRepository : IFIleRepository
     {
         using var reader = new StreamReader(file.OpenReadStream());
         string contents = reader.ReadToEnd();
+        reader.Close();
         return new EnvFile
         {
             Id = 0, // Id is auto-generated
             FileName = file.FileName,
             ProcessedData = contents
         };
+
     }
 
     public int UploadFile(IFormFile file)
