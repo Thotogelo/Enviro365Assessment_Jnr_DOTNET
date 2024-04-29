@@ -13,7 +13,7 @@ public class EnvFile
     public DateTime UploadDate
     {
         get { return _uploadDate; }
-        set { _uploadDate = DateTime.Now; }
+        set { _uploadDate = value; }
     }
 
     public required string ProcessedData { get; set; }
