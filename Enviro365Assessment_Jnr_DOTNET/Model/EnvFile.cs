@@ -9,12 +9,10 @@ public class EnvFile
 
     public required string FileName { get; set; }
 
-    private DateTime _uploadDate;
-    public DateTime UploadDate
-    {
-        get { return _uploadDate; }
-        set { _uploadDate = value; }
-    }
+    public DateTime UploadDate { get; }
 
     public required string ProcessedData { get; set; }
+
+    public EnvFile()
+    => UploadDate = DateTime.Now;
 }
