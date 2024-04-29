@@ -13,16 +13,22 @@ public class FileRepository : IFIleRepository
 
     public EnvFile CovertToEnvFile(IFormFile file)
     {
-        using var reader = new StreamReader(file.OpenReadStream());
-        string contents = reader.ReadToEnd();
-        reader.Close();
-        return new EnvFile
+        try
         {
-            Id = 0, // Id is auto-generated
-            FileName = file.FileName,
-            ProcessedData = contents
-        };
-
+            using var reader = new StreamReader(file.OpenReadStream());
+            string contents = reader.ReadToEnd();
+            reader.Close();
+            return new EnvFile
+            {
+                Id = 0, // Id is auto-generated
+                FileName = file.FileName,
+                ProcessedData = contents
+            };
+        }
+        catch (Exception e)
+        {
+            throw new Exception("An error occurred while reading the file: " + e.Message);
+        }
     }
 
     public int UploadFile(IFormFile file)
