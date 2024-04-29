@@ -28,7 +28,6 @@ app.UseSwaggerUI(opt =>
     opt.RoutePrefix = string.Empty;
 });
 
-app.Logger.LogInformation("Application Started");
 app.MapControllers();
 app.MapGet("/test", () => "Hello World!");
 app.Run();
