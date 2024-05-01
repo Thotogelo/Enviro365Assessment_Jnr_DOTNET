@@ -1,5 +1,7 @@
 ﻿using Enviro365Assessment_Jnr_DOTNET.Data;
+using Enviro365Assessment_Jnr_DOTNET.Exceptions;
 using Enviro365Assessment_Jnr_DOTNET.Model;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Enviro365Assessment_Jnr_DOTNET.Repository;
 
@@ -21,7 +23,7 @@ public class FileRepository : IFIleRepository
             return new EnvFile
             {
                 Id = 0, // Id is auto-generated
-                FileName = file.FileName,
+                FileName = Path.GetFileName(file.FileName), //Path is used to get the file name, extension, and directory information, 
                 ProcessedData = contents
             };
         }
@@ -31,16 +33,17 @@ public class FileRepository : IFIleRepository
         }
     }
 
-    public int UploadFile(IFormFile file)
+    public EnvFile? UploadFile(IFormFile file)
     {
         if (file == null)
-            return 0;
+            throw new FileException("No file was uploaded");
 
         try
         {
             EnvFile FileToStore = CovertToEnvFile(file);
             _dataContext.EnvFiles.Add(FileToStore);
-            return _dataContext.SaveChanges();
+            _dataContext.SaveChanges();
+            return FileToStore;
         }
         catch (Exception e)
         {
