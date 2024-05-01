@@ -29,7 +29,7 @@ public class FileRepository : IFIleRepository
         }
         catch (Exception e)
         {
-            throw new Exception("An error occurred while reading the file: " + e.Message);
+            throw new FileException("An error occurred while reading the file: " + e.Message);
         }
     }
 
@@ -47,7 +47,7 @@ public class FileRepository : IFIleRepository
         }
         catch (Exception e)
         {
-            throw new Exception("An error occurred while uploading the file: " + e.Message);
+            throw new FileException("An error occurred while uploading the file: " + e.Message);
         }
     }
 
@@ -73,7 +73,7 @@ public class FileRepository : IFIleRepository
         }
         catch (Exception e)
         {
-            throw new Exception("An error occurred while removing the file: " + e.Message);
+            throw new FileException("An error occurred while removing the file: " + e.Message);
         }
     }
 
@@ -87,7 +87,7 @@ public class FileRepository : IFIleRepository
         }
         catch (Exception e)
         {
-            throw new Exception("An error occurred while updating the file: " + e.Message);
+            throw new FileException("An error occurred while updating the file: " + e.Message);
         }
     }
 }
