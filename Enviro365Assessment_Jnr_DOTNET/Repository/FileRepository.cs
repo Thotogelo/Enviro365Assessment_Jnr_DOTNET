@@ -35,8 +35,8 @@ public class FileRepository : IFIleRepository
 
     public EnvFile? UploadFile(IFormFile file)
     {
-        if (file == null)
-            throw new FileException("The file is not a text file, please upload a valid text file.");
+        if (file.ContentType != "text/plain")
+            throw new FileException("File is not a text file, please upload a text file.");
 
         if (file.Length == 0)
             throw new FileException("The file is empty, please upload a file with contents.");
