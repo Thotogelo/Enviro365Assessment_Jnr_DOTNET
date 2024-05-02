@@ -36,7 +36,13 @@ public class FileRepository : IFIleRepository
     public EnvFile? UploadFile(IFormFile file)
     {
         if (file == null)
-            throw new FileException("No file was uploaded");
+            throw new FileException("The file is not a text file, please upload a valid text file.");
+
+        if (file.Length == 0)
+            throw new FileException("The file is empty, please upload a file with contents.");
+
+        if (file.Length > 524000)
+            throw new FileException("The file is too large, please upload a file less than 500kb.");
 
         try
         {
