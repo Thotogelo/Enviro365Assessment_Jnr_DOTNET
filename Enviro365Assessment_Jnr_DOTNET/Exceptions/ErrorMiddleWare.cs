@@ -24,13 +24,19 @@ public class ErrorMiddleWare
         }
         catch (Exception ex)
         {
-            context.Response.StatusCode = StatusCodes.Status500InternalServerError;
             context.Response.ContentType = "application/json";
 
+            context.Response.StatusCode = ex.Message switch
+            {
+                "The file is not a text file, please upload a valid text file." => StatusCodes.Status400BadRequest,
+                "The file is empty, please upload a file with contents." => StatusCodes.Status204NoContent,
+                "The file is too large, please upload a file less than 500kb." => StatusCodes.Status413PayloadTooLarge,
+                _ => StatusCodes.Status500InternalServerError,
+            };
             ProblemDetails errorResponse = new()
             {
                 Title = ex.Message,
-                Status = (int)HttpStatusCode.InternalServerError,
+                Status = context.Response.StatusCode,
                 Instance = context.Request.Path.Value,
             };
 

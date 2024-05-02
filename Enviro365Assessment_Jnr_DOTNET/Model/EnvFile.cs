@@ -11,5 +11,5 @@ public class EnvFile
     public required string ProcessedData { get; set; }
 
     public EnvFile()
-    => UploadDate = DateTime.Now;
+    => UploadDate = DateTime.UtcNow;
 }

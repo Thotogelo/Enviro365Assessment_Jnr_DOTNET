@@ -1,5 +1,7 @@
 ﻿using Enviro365Assessment_Jnr_DOTNET.Data;
+using Enviro365Assessment_Jnr_DOTNET.Exceptions;
 using Enviro365Assessment_Jnr_DOTNET.Model;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Enviro365Assessment_Jnr_DOTNET.Repository;
 
@@ -21,30 +23,37 @@ public class FileRepository : IFIleRepository
             return new EnvFile
             {
                 Id = 0, // Id is auto-generated
-                FileName = file.FileName,
+                FileName = Path.GetFileName(file.FileName), //Path is used to get the file name, extension, and directory information, 
                 ProcessedData = contents
             };
         }
         catch (Exception e)
         {
-            throw new Exception("An error occurred while reading the file: " + e.Message);
+            throw new FileException("An error occurred while reading the file: " + e.Message);
         }
     }
 
-    public int UploadFile(IFormFile file)
+    public EnvFile? UploadFile(IFormFile file)
     {
-        if (file == null)
-            return 0;
+        if (file.ContentType != "text/plain")
+            throw new FileException("File is not a text file, please upload a text file.");
+
+        if (file.Length == 0)
+            throw new FileException("The file is empty, please upload a file with contents.");
+
+        if (file.Length > 524000)
+            throw new FileException("The file is too large, please upload a file less than 500kb.");
 
         try
         {
             EnvFile FileToStore = CovertToEnvFile(file);
             _dataContext.EnvFiles.Add(FileToStore);
-            return _dataContext.SaveChanges();
+            _dataContext.SaveChanges();
+            return FileToStore;
         }
         catch (Exception e)
         {
-            throw new Exception("An error occurred while uploading the file: " + e.Message);
+            throw new FileException("An error occurred while uploading the file: " + e.Message);
         }
     }
 
@@ -70,7 +79,7 @@ public class FileRepository : IFIleRepository
         }
         catch (Exception e)
         {
-            throw new Exception("An error occurred while removing the file: " + e.Message);
+            throw new FileException("An error occurred while removing the file: " + e.Message);
         }
     }
 
@@ -84,7 +93,7 @@ public class FileRepository : IFIleRepository
         }
         catch (Exception e)
         {
-            throw new Exception("An error occurred while updating the file: " + e.Message);
+            throw new FileException("An error occurred while updating the file: " + e.Message);
         }
     }
 }

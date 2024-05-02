@@ -17,15 +17,8 @@ public class UploadController : ControllerBase
     [Route("save")]
     public IActionResult UploadFile([FromForm] IFormFile file)
     {
-        try
-        {
-            int rowsAffected = _fileRepository.UploadFile(file);
-            return rowsAffected > 0 ? Ok() : BadRequest();
-        }
-        catch (Exception e)
-        {
-            throw new Exception("An error occurred while uploading the file: " + e.Message);
-        }
+        var dbfile = _fileRepository.UploadFile(file);
+        return CreatedAtAction(nameof(GetFile), new { id = dbfile.Id }, dbfile);
     }
 
     [HttpGet]
