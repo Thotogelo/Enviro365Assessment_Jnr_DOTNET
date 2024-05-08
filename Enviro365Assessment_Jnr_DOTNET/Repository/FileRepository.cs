@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Enviro365Assessment_Jnr_DOTNET.Repository;
 
-public class FileRepository : IFIleRepository
+public class FileRepository
 {
     private readonly DataContext _dataContext;
 

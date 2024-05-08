@@ -8,9 +8,9 @@ namespace Enviro365Assessment_Jnr_DOTNET.Controller;
 [Route("api/v1/[controller]")]
 public class UploadController : ControllerBase
 {
-    private readonly IFIleRepository _fileRepository;
+    private readonly FileRepository _fileRepository;
 
-    public UploadController(IFIleRepository fileRepository)
+    public UploadController(FileRepository fileRepository)
         => _fileRepository = fileRepository;
 
     [HttpPost]
