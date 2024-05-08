@@ -46,10 +46,10 @@ public class FileRepository
 
         try
         {
-            EnvFile FileToStore = CovertToEnvFile(file);
-            _dataContext.EnvFiles.Add(FileToStore);
+            EnvFile fileToStore = CovertToEnvFile(file);
+            _dataContext.EnvFiles.Add(fileToStore);
             _dataContext.SaveChanges();
-            return FileToStore;
+            return fileToStore;
         }
         catch (Exception e)
         {
