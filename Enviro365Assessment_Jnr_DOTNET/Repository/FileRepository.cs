@@ -62,9 +62,9 @@ public class FileRepository
         return _dataContext.EnvFiles.Find(id);
     }
 
-    public List<EnvFile> GetFiles()
+    public IEnumerable<EnvFile> GetAllFiles()
     {
-        return _dataContext.EnvFiles.ToList();
+        return _dataContext.EnvFiles;
     }
 
     public int DeleteFile(int id)

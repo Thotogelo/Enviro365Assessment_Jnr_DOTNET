@@ -31,9 +31,9 @@ public class UploadController : ControllerBase
 
     [HttpGet]
     [Route("data")]
-    public IActionResult GetFiles()
+    public ActionResult<IEnumerable<EnvFile>> GetAllFiles()
     {
-        return Ok(_fileRepository.GetFiles());
+        return Ok(_fileRepository.GetAllFiles());
 
     }
 
